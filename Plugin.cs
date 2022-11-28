@@ -24,7 +24,6 @@ namespace MyFirstPlugin
             plugin = TRTools.Initialize(this, -1 /* TODO: add yourNexusID*/, "kjay");
 
             TRTools.sceneSetupEvent += CreateHotkeyButtons;
-            plugin.Log("Created Objects: HotkeyButtons");
         }
 
         private void CreateHotkeyButtons()
@@ -58,7 +57,6 @@ namespace MyFirstPlugin
         private void useHotkey1()
         {
             inSim.Keyboard.KeyPress(VirtualKeyCode.VK_P);
-            plugin.Log("KeyPress Simulated: P");
         }
     }
 }
