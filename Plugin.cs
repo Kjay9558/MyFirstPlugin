@@ -2,6 +2,8 @@
 using BepInEx;
 using TinyResort;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
+using UnityEngine.UI;
 using WindowsInput;
 using WindowsInput.Native;
 
@@ -28,7 +30,7 @@ namespace MyFirstPlugin
 
         private void CreateHotkeyButtons()
         {
-            GameHud = GameObject.Find("MapCanvas/Hud");
+            GameHud = GameObject.Find("Canvas/ChatBox");
             var buttonGrid = new GameObject();
             buttonGrid.name = "Hotkey Buttons Grid";
             try
@@ -39,9 +41,22 @@ namespace MyFirstPlugin
             {
                 return;
             }
+            buttonGrid.transform.SetAsLastSibling();
+            var gridLayoutGroup = buttonGrid.AddComponent<GridLayoutGroup>();
 
+            gridLayoutGroup.cellSize = new Vector2(52, 30);
+            gridLayoutGroup.spacing = new Vector2(8, 2);
+            gridLayoutGroup.childAlignment = TextAnchor.UpperCenter;
+            gridLayoutGroup.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
+            gridLayoutGroup.constraintCount = 3;
+            
+            
             var rect = buttonGrid.GetComponent<RectTransform>();
             rect.pivot = new Vector2(0.5f, 1);
+            rect.anchorMax = new Vector2(0.5f, 1);
+            rect.anchorMin = new Vector2(0.5f, 1);
+            rect.localScale = Vector3.one;
+            rect.anchoredPosition = new Vector2(-210, -475);
             
 
             HotkeyButton1 = TRInterface.CreateButton(ButtonTypes.MainMenu, buttonGrid.transform, "Hotkey1", useHotkey1);
@@ -50,9 +65,15 @@ namespace MyFirstPlugin
 
         }
 
-        public TRButton HotkeyButton1 { get; set; }
+        public static TRButton HotkeyButton1 { get; set; }
 
-        public GameObject GameHud { get; set; }
+        public static GameObject GameHud { get; set; }
+
+
+        private void Update()
+        {
+            useHotkey1();
+        }
 
         private void useHotkey1()
         {
