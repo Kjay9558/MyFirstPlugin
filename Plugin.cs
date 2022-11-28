@@ -25,12 +25,18 @@ namespace MyFirstPlugin
             Logger.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
             plugin = TRTools.Initialize(this, -1 /* TODO: add yourNexusID*/, "kjay");
 
-            TRTools.sceneSetupEvent += CreateHotkeyButtons;
+            // TRTools.sceneSetupEvent += CreateHotkeyButtons;
         }
+        
+        public static TRButton HotkeyButton1 { get; set; }
 
-        private void CreateHotkeyButtons()
+        public static GameObject GameHud { get; set; }
+
+
+        private void Update()
         {
-            GameHud = GameObject.Find("Canvas/ChatBox");
+            if (GameHud == null) {
+                GameHud = GameObject.Find("Canvas/ChatBox");  //using find method does not work here. use another method.
             var buttonGrid = new GameObject();
             buttonGrid.name = "Hotkey Buttons Grid";
             try
@@ -62,17 +68,7 @@ namespace MyFirstPlugin
             HotkeyButton1 = TRInterface.CreateButton(ButtonTypes.MainMenu, buttonGrid.transform, "Hotkey1", useHotkey1);
             HotkeyButton1.textMesh.GetComponent<RectTransform>().sizeDelta = new Vector2(50, 10);
             HotkeyButton1.textMesh.fontSize = 8;
-
-        }
-
-        public static TRButton HotkeyButton1 { get; set; }
-
-        public static GameObject GameHud { get; set; }
-
-
-        private void Update()
-        {
-            useHotkey1();
+            }
         }
 
         private void useHotkey1()
