@@ -47,6 +47,10 @@
               "target": "Package",
               "version": "[1.*, )"
             },
+            "BepInEx.Core": {
+              "target": "Package",
+              "version": "[6.0.0-pre.1, )"
+            },
             "BepInEx.PluginInfoProps": {
               "target": "Package",
               "version": "[1.*, )"
